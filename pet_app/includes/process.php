@@ -1,0 +1,152 @@
+<?php
+include_once("../database/constants.php");
+include_once("DBOperation.php");
+
+if (isset($_POST["getNewOrderItem"])) {
+	
+	
+	  require_once('../database/conn.php');
+
+	?>
+<tr>
+		    <td hidden><b  class="number">1</b></td>
+		    <td>
+		         <?php
+           
+                    $query1 = "SELECT type FROM type_animals";
+                    $result1 = mysqli_query($mysqli, $query1);
+					
+                    ?>
+					  <select   type="text" class="form-control bg-light"  id="type_a" name="type_a[]"   required >
+			 					     <option value="" > Choisissez s'il vous plaît  </option  > 
+                    <?php while($row1 = mysqli_fetch_array($result1)):;?>
+		
+                   <option  >       <?php echo $row1['type'];?>
+				   
+				   
+				   </option>
+                        <?php endwhile;?>
+                       
+                       </select>
+		    </td>
+		    <td> <input type="text" class="form-control" name="nom_a[]" autocomplete="off" id="nom_a" placeholder="Nom d'animal" required></td>   
+		    <td><input type="text" class="form-control" maxlength="3" name="jma[]" autocomplete="off" id="jma"  placeholder="age" required>
+  <select class="form-select" required id="age" name="age">
+    <option value="" selected>Choisir...</option>
+    <option value="Jours">Jours</option>
+    <option value="Mois">Mois</option>
+    <option value="Ans">Ans</option>
+  </select></td>
+		    <td><select   class="form-control" required name="sexe[]" id="sexe">
+       <option value="">Choisissez s'il vous plaît </option>
+    <option value="Male">Male </option>
+    <option  value="Femelle">Femelle </option>
+   
+  </select></td>
+  
+  	    <td> <input type="Date" class="form-control" autocomplete="off" name="date_v[]"  id="date_v"   max=<?php
+         echo date('Y-m-d');
+	     ?>  /></td>
+		  
+		  
+		  <td> <input type="color" class="form-control bg-light border-2 px-4 py-2" name="couleur[]" id="couleur" required placeholder="Couleur" ></td>
+		  
+		  
+		</tr>
+	<?php
+	
+}
+
+
+
+
+
+if (isset($_POST["date_Vac"])) {
+	$obj = new DBOperation();
+	$result = $obj->addvacc($_POST["type_a"],
+	                               $_POST["date_Vac"],
+								   $_POST["date_Vaccin"],
+								 $_POST["tels"],
+								  $_POST["Motif_Vaccin"]);
+								  
+									 
+ 	echo $result;
+	exit();
+}
+
+if (isset($_POST["date_Con"])) {
+	$obj = new DBOperation();
+	$result = $obj->addcons($_POST["type_a"],
+	                               $_POST["date_Con"],
+								   $_POST["Motif_Con"],
+								 $_POST["tels"],
+							
+								  
+									   $_POST["Retour_Con"]);
+ 	echo $result;
+	exit();
+}
+
+
+
+
+//Add cilent
+if (isset($_POST["Nom_c"])) {
+	$obj = new DBOperation();
+	$result = $obj->addclient($_POST["Nom_c"],
+	                               $_POST["Prenom_c"],
+								   $_POST["tel"],
+								 $_POST["adresse"],
+							
+								  $_POST["Date_suv"],
+								 
+								 $_POST["type_a"],
+								 	  $_POST["nom_a"],
+								  $_POST["jma"],
+						
+								 $_POST["age"],
+								   $_POST["couleur"],
+							
+								   $_POST["date_v"],
+								   $_POST["sexe"]);
+ 	echo $result;
+	exit();
+}
+
+
+//Add type
+if (isset($_POST["Type_an"])) {
+	$obj = new DBOperation();
+	$result = $obj->addtype( $_POST["Type_an"]);
+ 	echo $result;
+	exit();
+}
+
+
+if (isset($_POST["agent_mat3"])) {
+	$obj = new DBOperation();
+	$rows = $obj->getanimauxByid($_POST["agent_mat3"]);
+	foreach ($rows as $row) {
+		echo "<option value='".$row["id_animaux"]."'> ".$row["type_a"]."  ".$row["nom_a"]."</option>";
+	}
+	exit();
+}
+
+
+if (isset($_POST["agent_mat2"])) {
+	$obj = new DBOperation();
+	$rows = $obj->getAgent2($_POST["agent_mat2"] );
+	if($rows=="no") return "no";
+	else{
+		foreach ($rows as $row) {
+		echo json_encode($rows);
+		
+		
+			
+		}
+	}
+	exit();
+}
+
+
+?>

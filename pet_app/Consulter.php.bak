@@ -1,0 +1,373 @@
+<?php
+session_start();
+
+ if (!isset($_SESSION["username"])) {
+header('Location: http://localhost/Cabinet_Veterinaire/');
+}
+     require_once('database/conn.php');
+           
+?>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+  <title>Cabinet Veterinaire</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+
+  
+
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@700&display=swap" rel="stylesheet">  
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+
+    <!-- Navbar Start -->
+   
+	<?php
+		include_once("./templates/nav.php");
+		
+	?>
+
+
+    <!-- Navbar End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-fluid pt-5">
+        <div class="container">
+            <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
+               
+				<h1 class="display-7 text-uppercase mb-0">Consulter Par numéro de Téléphone</h1>
+               
+            </div>
+            <div class="row g-7">
+                <div class="col-lg-7">
+             
+                        <div class="row g-3">
+                            <div class="col-12">
+							
+    
+    <div class="testbox">
+           
+                                      <form method="post">
+									    <h6 class="text-primary text-uppercase">Veuillez Saisir  le N° Téléphone du Propriétaire</h6>
+             
+                <table style="width:100%">
+                  <tr>
+                    <td>
+                      <div class="item">
+                        <div class="name-item">
+                          <input type="input" name="tels" id="tels" maxlength="8" autocomplete="off" required class="form-control bg-light border-2 px-4" placeholder=" N° TEL">
+                        </div>
+                      </div>
+                    </td>
+					
+					
+						    <td>
+							
+							<div class="item">
+                        <div class="name-item">
+		   <select type="type_a" class="form-control" id="type_a"  name="type_a"  required style="height: 40px;">
+								
+								
+								<option value=''>choisir le type d'animal concerné</option>
+								</select>
+								</div>
+                  </div>
+		    </td>
+					<td>
+				
+					
+					</td>
+					
+					
+                    <td>
+                      <input type="submit" name="search3" id="search3"  value="Recherche" autocomplete="off" class="btn btn-success">
+                      
+                    </td>
+                  </tr>
+                </table>
+              </form>
+			  </div>
+               <?php
+         include("database/conn.php");
+            if (isset($_POST['search3'])) {
+
+              $tel = $_POST['tels'];
+             $type_a = $_POST['type_a'];
+		
+
+              $query = mysqli_query($mysqli, "SELECT *   FROM pets where ((tel LIKE '$tel') and (id_animaux='$type_a') )");
+
+              $query2 = mysqli_query($mysqli, "SELECT *   FROM vaccination where ((tel LIKE '$tel') and (id_animaux='$type_a') )");
+			  $query3 = mysqli_query($mysqli, "SELECT *   FROM consultation where ((tel LIKE '$tel') and (id_animaux='$type_a') )");
+              $count = mysqli_num_rows($query);
+
+              if ($count == "0") {
+            ?>
+                <div class="testbox">
+
+                  <div class="alert alert-danger samuel animated shake" id="sams1">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong> </strong><?php echo 'Veuillez vérifier le numéro de téléphone'; ?>
+                  </div>
+                </div>
+              <?php
+              }
+          
+              while ($row = mysqli_fetch_array($query)) {
+              ?>
+			    <div class="testbox">
+                <tbody id="get_invoices_details">
+                  <div class="testbox">
+                    <form method="post" action="pdffile.php">
+                      <div class="item">
+                        <p>
+                        <h4 style="color:black"><b> Nom Prenom Client</b></h4>
+                        </p>
+                        <div class="name-item">
+                          <input type="text" name="fnom" readonly  class="form-control bg-light border-2 px-4" value='<?php echo $row["prenom"]; ?> <?php echo $row["nom"]; ?>'>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <p>
+                        <h4 style="color:black"><b> Adresse</b></h4>
+                        </p>
+                        <div class="name-item">
+                          <input type="text" name="Adresse" readonly  class="form-control bg-light border-2 px-4" value='<?php echo $row["Adresse"]; ?>'>
+                        </div>
+                      </div>
+	
+					  
+					      <div class="item">
+                        <p>
+                        <h4 style="color:black"  ><b> Télphone</b></h4>
+                        </p>
+                        <div hiddenclass="name-item">
+                          <input type="text" name="tel" readonly   class="form-control bg-light border-2 px-4" value='<?php echo $row["tel"]; ?>'>
+                        </div>
+                      </div>
+					  		
+							
+							
+							
+							
+						  </tr>
+                
+
+                  <div class="item">
+                        <p>
+                        <h4 style="color:black"><b>  </b></h4>
+                        </p>
+						 <div class="name-item">
+                          <input type="text" name="nom_a"  hidden  readonly   class="form-control bg-light border-0 px-4"value='<?php echo $row["nom_a"]; ?>'>
+                        </div>
+                        <div class="name-item">
+                          <input type="text" name="sexe"   readonly  hidden class="form-control bg-light border-0 px-4"value='<?php echo $row["sexe"]; ?>'>
+                        </div>
+						        <input type="text" name="age"  readonly  hidden class="form-control bg-light border-0 px-4"value='<?php echo $row["age"]; ?>'>
+		 <input type="text" name="type_a"  readonly  hidden  class="form-control bg-light border-0 px-4"value='<?php echo $row["type_a"]; ?>'>
+		 <div class="btn-block">
+                        <button type="submit" name="create" class="btn btn-primary">Impression
+
+                      </div>
+					  
+					  
+					    <?php
+						
+						    $count1 = mysqli_num_rows($query2);
+
+              if ($count1 >0) {
+             
+					      while ($row = mysqli_fetch_array($query2)) {
+							  
+						
+							 
+					    ?>
+						<table hidden  class="table table-hover table-bordered">
+		    <thead >
+			
+			
+		      <tr > 
+		       
+   <th  ><center></th></center>
+			       <th  ><center></th></center>
+				     <th ><center></th></center>
+			
+					    </tr>	
+						    <tr>
+						
+					
+						
+								 
+						<td> <input type="text" name="date_Vaccin[]"  hidden  readonly   class="form-control bg-light border-0 px-4"value='<?php echo $row["date_Vaccin"]; ?>'></td>
+							<td> <input type="text"  name="Motif_Vaccin[]"   hidden readonly   class="form-control bg-light border-0 px-4"value='<?php echo $row["Motif_Vaccin"]; ?>'></td>
+		<td><input type="text" name="count1"  readonly   hidden  class="form-control bg-light border-0 px-4"value='<?php echo $count1; ?>'></td>
+		 </tr>
+		 </table>
+		 
+	 <?php
+
+            }  ?>
+			
+                      
+         
+                  </div>
+
+
+                </tbody>
+    
+                 <?php
+	
+            }
+?>
+					    <?php
+						
+						    $count2 = mysqli_num_rows($query3);
+
+              if ($count2 >0) {
+             
+					      while ($row = mysqli_fetch_array($query3)) {
+							  
+						
+							 
+					    ?>
+						<table  hidden  class="table table-hover table-bordered">
+		    <thead >
+		      <tr > 
+		       
+   <th  ><center></th></center>
+			       <th  ><center></th></center>
+				     <th ><center></th></center>
+			
+					    </tr>	
+						    <tr>
+						
+					
+						
+								 
+						<td> <input type="text" name="date_consultation[]" hidden   readonly   class="form-control bg-light border-0 px-4"value='<?php echo $row["date_consultation"]; ?>'></td>
+							<td> <input type="text" name="Motif_consultation[]"  hidden readonly   class="form-control bg-light border-0 px-4"value='<?php echo $row["Retour_Con"]; ?>'></td>
+		<td><input type="text" name="count2"  readonly  hidden   class="form-control bg-light border-0 px-4"value='<?php echo $count2; ?>'></td>
+		 </tr>
+		 </table>
+		 
+	 <?php
+
+            }  ?>
+			
+                      
+                    </form>
+                  </div>
+
+
+                </tbody>
+    
+                 <?php
+	
+            }
+?>
+            <?php
+		exit();
+            }
+            ?>
+			
+			 <?php
+
+            }  ?>
+          </div>
+		  
+        </div>  </div>
+                
+           
+                </div>
+		  <div class="row gx-5">
+                <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
+                    <div class="position-relative h-100">
+                        <img class="position-absolute w-100 h-100 rounded" src="img/pet.jpg" style="object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="border-start border-5 border-primary ps-5 mb-5">
+                    
+                   <h5 class="display-6 text-uppercase mb-0">Care They Need,Love they Deserve</h5> 
+                    </div>
+                   
+         
+            </div>
+        </div></div>
+    </div><br><br>
+     <div class="container-fluid bg-dark text-white-30 py-4">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-md-0">&copy; <a class="text-white" href="#">Issam Rayhani</a>. All Rights Reserved.</p>
+                </div>
+             
+            </div>
+        </div>
+    </div>
+
+		<?php
+		include_once("./templates/client.php");
+			include_once("./templates/type_animal.php");
+				
+				include_once("./templates/client _consultation.php");
+	?>
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+	    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+	   <script src="js/ajouter.js"></script>
+	   
+    <script src="js/bootstrap.min.js"></script>
+	 <script src="js/app.js"></script>
+  <script src="assets/js/jquery.min.js"></script>  
+    <script src="js/iao-alert.jquery.js"></script>
+	 <script src="../pet_app/js/sweetalert2.all.min.js"></script>
+<link href="assets/css/iao-alert.css" rel="stylesheet" type="text/css">
+
+  <!-- Slick slider -->
+  <script type="text/javascript" src="assets/js/slick.js"></script>
+  <!-- Counter -->
+  <script type="text/javascript" src="assets/js/waypoints.js"></script>
+  <script type="text/javascript" src="assets/js/jquery.counterup.js"></script>  
+  <!-- Mixit slider -->
+
+  <!-- Custom js -->
+  <script src="assets/js/custom.js"></script> 
+  
+
+
+</body>
+
+</html>

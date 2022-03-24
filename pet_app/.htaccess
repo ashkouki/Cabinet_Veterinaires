@@ -1,0 +1,14 @@
+RewriteEngine on  
+  
+RewriteRule ^home  index.php [NC,L]
+  
+  
+RewriteRule ^Consulter Consulter.php [NC,L]
+RewriteRule ^consultation contact.php [NC,L]
+RewriteRule ^Vaccination Vaccination.php [NC,L]
+
+RewriteRule ^Recherche Recherches.php [NC,L]
+RewriteRule ^Ordonnances Ordonnance.php [NC,L]
+
+
+

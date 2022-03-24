@@ -1,0 +1,364 @@
+$(document).ready(function(){
+	var DOMAIN = "http://localhost:8080/Cabinet_Veterinaires/pet_app/";
+	
+	
+$("#adds").click(function(){
+		addNewRow();
+	})
+
+function addNewRow(){
+		
+		var lg = 1;
+		$(".number").each(function(){
+			$(this).html(++lg);			
+		})
+		console.log('Nombre de ligne: ', lg);
+		$.ajax({
+			url : DOMAIN+"/includes/process.php",
+			method : "POST",
+			data : {getNewOrderItem:lg},
+			success : function(data){
+				$("#invoice_item").append(data);
+				console.log(data);
+				var n = 0;
+				$(".number").each(function(){
+					$(this).html(++n);
+					
+				})
+				
+			}
+		})
+	}
+	$("#remove").click(function(){
+		$("#invoice_item").children("tr:last").remove();
+		calculate(0,0);
+	})
+
+
+	 $('#tel1').on('change', function(){
+		  var tel1 = $('#tel1').val();
+if  ($("#tel1").val().length < 8)   {
+		     
+			 
+			 Swal.fire({
+  icon: 'error',
+  title: 'error...',
+  text: 'Numéro de Téléphone est erroné',
+ 
+})
+			 
+		$("#tel1").val("");
+			
+		}
+
+		
+		else 
+		
+{
+		
+    }    
+    });
+	
+		 $('#jma').on('change', function(){
+		  var jma = $('#jma').val();
+if   (isNaN($("#jma").val()) )  {
+		
+			 
+			 Swal.fire({
+  icon: 'error',
+  title: 'error...',
+  text: 'age  erroné',
+ 
+})
+			 
+		$("#jma").val("");
+			
+		}
+
+		
+		else 
+		
+{
+		
+    }    
+    });
+//ajout_Vaccination
+	$("#ajout_Vaccination").on("submit",function(){
+		$.ajax({
+				url : DOMAIN+"/includes/process.php",
+				method : "POST",
+				data : $("#ajout_Vaccination").serialize(),
+				success : function(data){
+					
+					if (data== "ok") {		
+ console.log(data);
+Swal.fire({
+
+  icon: 'success',
+  title: 'Ajouter avec Succès',
+  showConfirmButton: false,
+  timer: 2500
+})
+				
+	setTimeout(function(){
+						window.location.href = "http://localhost:8080/Cabinet_Veterinaires/pet_app/";  }, 2000);		
+						
+					}else{
+											Swal.fire({
+
+  icon: 'error',
+  title: 'error...',
+  text: 'Ceci a été ajouté précédemment',
+ 
+})
+	
+					}
+						
+				}
+			})
+	})
+
+
+//ajout_consultation
+	$("#ajout_consultation").on("submit",function(){
+		$.ajax({
+				url : DOMAIN+"/includes/process.php",
+				method : "POST",
+				data : $("#ajout_consultation").serialize(),
+				success : function(data){
+					
+					if (data== "ok") {		
+ console.log(data);
+Swal.fire({
+
+  icon: 'success',
+  title: 'Ajouter avec Succès',
+  showConfirmButton: false,
+  timer: 2500
+})
+				
+	setTimeout(function(){
+						window.location.href = "http://localhost:8080/Cabinet_Veterinaires/pet_app/";  }, 2000);		
+						
+					}else{
+											Swal.fire({
+
+  icon: 'error',
+  title: 'error...',
+  text: 'Ceci a été ajouté précédemment',
+ 
+})
+	
+					}
+						
+				}
+			})
+	})
+
+//add client
+	$("#ajout_client").on("submit",function(){
+		$.ajax({
+				url : DOMAIN+"/includes/process.php",
+				method : "POST",
+				data : $("#ajout_client").serialize(),
+				success : function(data){
+					
+					if (data > 0) {			
+ 
+Swal.fire({
+
+  icon: 'success',
+  title: 'Ajouter avec Succès',
+  showConfirmButton: false,
+  timer: 2500
+})
+			
+						$("#Nom_c").val("");
+							$("#Prenom_c").val("");		
+$("#tel").val("");		
+$("#adresse").val("");		
+$("#Date_suv").val("");		
+$("#nom_a").val("");		
+$("#age").val("");	
+$("#couleur").val("");	
+$("#date_v").val("");	
+	setTimeout(function(){
+						window.location.href = DOMAIN;  }, 2000);		
+						
+					}else{
+											Swal.fire({
+
+  icon: 'error',
+  title: 'error...',
+  text: 'Ceci a été ajouté précédemment',
+ 
+})
+						$("#Nom_c").val("");
+							$("#Prenom_c").val("");		
+$("#tel").val("");		
+$("#adresse").val("");		
+$("#Date_suv").val("");		
+$("#nom_a").val("");		
+$("#age").val("");	
+$("#couleur").val("");	
+$("#date_v").val("");	
+					}
+						
+				}
+			})
+	})
+	
+	
+	
+	$("#ajout_type").on("submit",function(){
+		$.ajax({
+				url : DOMAIN+"/includes/process.php",
+				method : "POST",
+				data : $("#ajout_type").serialize(),
+				success : function(data){
+					
+					if (data== "ok") {			
+ 
+Swal.fire({
+
+  icon: 'success',
+  title: 'Ajouter avec Succès',
+  showConfirmButton: false,
+  timer: 2500
+})
+			
+						$("#Type_an").val("");
+						setTimeout(function(){
+						window.location.href = DOMAIN;  }, 2000);
+	
+						
+					}else{
+						Swal.fire({
+
+  icon: 'error',
+  title: 'error...',
+  text: 'Ceci a été ajouté précédemment',
+ 
+})
+			$("#Type_an").val("");			
+						
+						
+						
+						
+						
+						
+						
+						
+						
+					}
+						
+				}
+			})
+	})
+	
+	$('#tels').on('change', function(){
+		var agentID = $(this).val();		
+        if(agentID){
+            $.ajax({
+                type:"POST",
+				
+                  url : DOMAIN+"/includes/process.php",
+                data: {agent_mat3:agentID},
+				
+                success:function(data){
+						//console.log(data);
+		
+						$("#id_animaux").val(data)
+					$("#type_a").val(data)
+					$("#nom_a").val(data)
+				
+							var choose = "<option value=''>choisir le type d'animal concerné</option>";
+					 $("#type_a").html(choose+data);
+
+		
+                    
+                }
+            }); 
+        }else{
+           Swal.fire({
+
+  icon: 'error',
+  title: 'error...',
+  text: 'ce client nexiste pas',
+ 
+})
+        }
+	});
+	
+	
+
+	
+		$('#tel').on('change', function(){
+		var agentID = $(this).val();		
+        if(agentID){
+            $.ajax({
+                type:"POST",
+				 dataType : "json",
+                  url : DOMAIN+"/includes/process.php",
+                data: {agent_mat2:agentID},
+				
+                success:function(data){
+						console.log(data);
+					var choose = "<option value=''>choisir le type d'animal concerné</option>";
+							//var data1 = "<option value="+data[0]["type_a"]+">"+ data[0]["type_a"] +"</option>";
+			$("#prenom").val(data[0]["prenom"]);
+						$("#nom").val(data[0]["nom"]);
+						$("#Date_Suivi").val(data[0]["Date_Suivi"]);
+								$("#Adresse").val(data[0]["Adresse"]);
+									
+								
+								$("#id_client").val(data[0]["id_client"]);
+							
+						 //$("#type_a").html(choose+data1);
+					//$("#type_a").html(data);
+							
+								//$("select#type_a").val(data[0]["type_a"]);
+			
+					$("#tel").prop('readonly',true);
+
+		
+                    
+                }
+            }); 
+        }else{
+           Swal.fire({
+
+  icon: 'error',
+  title: 'error...',
+  text: 'ce client nexiste pas',
+ 
+})
+        }
+	});
+
+
+ $('#tel').on('change', function(){
+		  var tel1 = $('#tel').val();
+if  ($("#tel").val().length < 8)   {
+		     
+			 
+			 Swal.fire({
+  icon: 'error',
+  title: 'error...',
+  text: 'Numéro de Téléphone est erroné',
+ 
+})
+			 
+		$("#tel").val("");
+			
+		}
+
+		
+		else 
+		
+{
+		
+    }    
+    });
+
+})

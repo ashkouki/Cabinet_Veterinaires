@@ -1,0 +1,153 @@
+<div class="modal" id="ModalAjouter">
+  <div class="modal-dialog modal-lg " >
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Ajouter une consultation</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+          <div class="modal-body">
+        <form id="ajout_client" onsubmit="return false">
+		<div class="container-fluid">
+		<h3>
+
+  <small class="text-muted"><p style="color:#1d2192 ;font-family:courier;"> Informations Ajouter un Propriétaire</p></small>
+</h3>
+		      <div class="row">
+			    <div class="col-md-6">
+            <label> N° TEL</label>
+            <input type="text" maxlength="8"  class="form-control" name="tel" id="tel" autocomplete="off" required placeholder="Enter N° Telephone">
+            
+          </div>
+            <div class="col-md-3">
+     
+              <label>Nom</label>
+              <input type="text" class="form-control" readonly name="Nom_c" id="Nom_c" autocomplete="off" placeholder="Nom" />
+            </div>
+            <div class="col-md-3">
+              <label>Prenom</label>
+              <input type="text" class="form-control"  name="prenom" autocomplete="off"id="prenom"  placeholder="Prenom" required>
+            </div>
+         
+		  
+		  
+		  
+       
+		   </div><br>
+        		      <div class="row">
+            <div class="col-md-6">
+      
+              <label>Adresse</label>
+              <input type="text" class="form-control" readonly name="adresse" autocomplete="off" id="adresse" placeholder="Adresse" />
+            </div>
+			
+			
+			
+            <div class="col-md-6">
+              <label>Date_Suivi </label>
+              <input type="date" class="form-control"  readonly name="Date_suv" id="Date_suv" placeholder="Enter Product Date" required>
+            </div>
+         
+		  
+		  
+	
+		   </div>
+          <br>
+		  <h3 >
+
+  <small class="text-muted"><p style="color:#1d2192 ;font-family:courier;"> Info consultation </p> </small>
+</h3>
+		     		      <div class="row">
+            <div class="col-md-6">
+             <div class="form-group">
+        <label for="type_a">Type d'animal</label>
+		 <?php
+           
+                    $query1 = "SELECT type FROM type_animals";
+                    $result1 = mysqli_query($mysqli, $query1);
+					
+                    ?>
+					  <select   type="text" class="form-control bg-light"  id="type_a" name="type_a"   required >
+			 					     <option value="" > Choisissez s'il vous plaît  </option  > 
+                    <?php while($row1 = mysqli_fetch_array($result1)):;?>
+		
+                   <option  >       <?php echo $row1['type'];?>
+				   
+				   
+				   </option>
+                        <?php endwhile;?>
+                       
+                       </select>
+
+            </div>
+			</div>
+            <div class="col-md-6">
+              <label>Nom d'animal</label>
+              <input type="text" class="form-control" name="nom_a" autocomplete="off"id="nom_a" placeholder="Nom d'animal" required>
+            </div>  <br> <br>
+         
+		  <br> <br>
+		  
+		         <div class="col-md-3">
+              <input type="hidden" name="pid" id="pid" value=""/>
+              <label>Age</label>
+              <input type="number" class="form-control " name="age" autocomplete="off" id="age" placeholder="Age" />
+            </div>
+			
+
+         <div class="col-md-3">
+            <label>Sexe</label>
+     <select   class="form-control" required name="sexe" id="sexe">
+       <option value="">Choisissez s'il vous plaît </option>
+    <option value="Male">Male </option>
+    <option  value="Femelle">Femelle </option>
+   
+  </select>
+            
+          </div><br><br>
+		  <br>
+		  
+		   <div class="col-md-6">
+            <label> Date du Vaccin</label>
+            <input type="Date" class="form-control" autocomplete="off" name="date_v" id="date_v" >
+            
+          </div>
+		   </div><br>
+		   
+		   
+		     		      <div class="row">
+            <div class="col-md-6">
+             <div class="form-group ">
+        <label for="sel1">Couleur animale </label>
+
+     <input type="color" class="form-control form-control-color" name="couleur" id="couleur" required placeholder="Couleur" >
+            </div>
+			</div></div>  <br> <br>
+  
+		   
+		   
+<div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+  <label class="form-check-label" for="flexSwitchCheckDefault">Est-ce que ce client a un autre animal de compagnie</label>
+</div>
+ 
+	
+		   <br>
+         <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Fermer</button>
+    
+      </div>
+   </div>
+      <!-- Modal footer -->
+         <div class="modal-footer">
+       
+        <button   type="submit"  class="btn btn-outline-primary">Envoyer</button>
+	
+		  </form>
+	
+      </div>
+    </div>
+  </div>
+</div>

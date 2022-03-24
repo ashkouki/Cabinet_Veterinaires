@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Cabinet Veterinaire</title>
+  </head>
+  <body>
+  
+
+  <div class="d-md-flex half">
+    <div class="bg" style="background-image: url('images/bg_22.jpg');"></div>
+    <div class="contents">
+
+      <div class="container">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-12">
+            <div class="form-block mx-auto">
+           
+              <form action="#" method="post">
+			    <span class="login100-form-logo">
+               <center> <i><img src="images/user.png" width="80px" /></i> </center>
+              </span>
+			     <center>   <span class="login100-form-title p-b-34 p-t-27">
+       <strong>    Se connecter </strong>
+              </span> </center><br>
+                <div class="form-group first">
+                  <label for="username">Nom d'utilisateur</label>
+                  <input type="text" class="form-control" placeholder="Saisir votre nom d'utilisateur"  name="username" id="username">
+                </div>
+                <div class="form-group last mb-3">
+                  <label for="password">Mot de passe</label>
+                  <input type="password" class="form-control" placeholder="Saisir votre  mot de passe" name="password" id="password">
+                </div>
+                
+        
+
+                <input type="submit" value="Connexion" class="btn btn-block py-2 btn-info">
+
+              
+                
+                
+        
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+    
+    
+ 
+
+<link href="pet_app/assets/css/iao-alert.css" rel="stylesheet" type="text/css">
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+	 <script src="pet_app/js/sweetalert2.all.min.js"></script>
+	   <script src="js/iao-alert.jquery.js"></script>
+	 <script>
+      
+      function getandsenddata(){
+        
+        if ($("#username").val() == "") {
+         
+		  	  $.iaoAlert({msg: "<center>ادخل اسم المستخدم</center>",
+            type: "error",
+				 position:'top-center',
+            mode: "dark",})
+        } else if ($("#password").val() == "") {
+          {
+            	  $.iaoAlert({msg: "<center>أدخل كلمة المرور</center>",
+            type: "error",
+				 position:'top-right',
+            mode: "dark",})
+    
+          }
+        } else {
+          $("#loader").addClass("active");
+          $.post(
+            "login.php",
+            {
+              username: $("#username").val(),
+              password: $("#password").val(),
+            },
+            function (data, status) {
+              //console.log(data);
+              if (data == "nok") {
+                $("#loader").removeClass("active");
+                
+					  $.iaoAlert({msg: "<center>خطأ في اسم المستخدم أو كلمة مرور</center>",
+            type: "error",
+				 position:'top-center',
+            mode: "dark",})
+               
+
+              } else {
+                localStorage.setItem("role",data)
+                localStorage.setItem("name",$("#name").val())
+             if(data=="2")
+               {location.href = "./pet_app";}
+      
+        
+              }
+            }
+          );
+        }
+      };
+
+      $("form").submit(function( event ) {
+      event.preventDefault();
+     //  console.log($('form').serialize());
+     getandsenddata()
+  }) 
+
+      
+    </script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+
+		
+		  <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
+        <a href="home" class="navbar-brand ms-lg-5">
+            <h1 class="m-0 text-uppercase text-dark">   <img src="img/logo.png" width="90" height="90"> </i>VSR</h1>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a href="home" class="nav-item nav-link active">Home</a>
+       
+				     <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Ajouter</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="#" class="dropdown-item" data-toggle="modal" data-target="#myModal" > Propriétaire</a>
+                        <a href="#" class="dropdown-item" data-toggle="modal" data-target="#type_animal"> Catégorie Animal  </a>
+                       
+                    </div>
+                </div>
+				   <div class="nav-item dropdown">
+                    <a href="Consulter" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Consulter</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="consultation" class="dropdown-item"  >Ajouter  Consultation</a>
+						   <a href="Vaccination" class="dropdown-item"  >Ajouter une date de Vaccination</a>
+                        <a href="Consulter" class="dropdown-item"> Suvi Dossier Client  </a>
+                       
+                    </div>
+                </div>
+           
+                <a href="Ordonnances" class="nav-item nav-link">Ordonnance</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Suvi</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="Recherche" class="dropdown-item">Recherches</a>
+                        <a href="#" class="dropdown-item">Statistique</a>
+						
+                       <button type="button" class="btn btn-danger">
+  Notifications <span class="badge badge-light">4</span>
+</button>
+                    </div>
+                </div>
+                <a href="logout.php" class=" nav-link nav-contact bg-primary text-white px-5 fa-sign-out-alt">déconnecter <i class="bi bi-box-arrow-left"></i></a>
+            </div>
+        </div>
+    </nav>

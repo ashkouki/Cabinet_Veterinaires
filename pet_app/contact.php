@@ -1,0 +1,197 @@
+<?php
+session_start();
+
+ if (!isset($_SESSION["username"])) {
+header('Location: http://localhost/Cabinet_Veterinaire/');
+}
+     require_once('database/conn.php');
+           
+?>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+  <title>Cabinet Veterinaire</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+
+
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@700&display=swap" rel="stylesheet">  
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Topbar Start -->
+   
+	<?php
+		include_once("./templates/nav.php");
+		
+	?>
+    <!-- Topbar End -->
+
+
+
+    </nav>
+    <!-- Navbar End -->
+
+
+    <!-- Contact Start -->
+    <div class="container-fluid pt-5">
+        <div class="container">
+            <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
+                <h4 class="text-primary text-uppercase">Ajouter une consultation</h4>
+               
+            </div>
+            <div class="row g-2">
+                <div class="col-lg-10">
+                    <form id="ajout_consultation"  onsubmit="return false">
+                        <div class="row g-4">
+						<h6 class="text-danger text-uppercase">Veuillez Saisir  le N° Téléphone du Propriétaire</h6>
+                            <div class="col-6">
+							  <label>TEL</label>
+                                <input type="text" class="form-control bg-light border-2 px-4" maxlength="8" autocomplete="off" id="tels" name="tels" required  placeholder="Tel" style="height: 55px;">
+                            </div>
+						
+						    <div class="col-6">
+							    <label>Catégorie animaux</label>
+                                <select type="type_a" class="form-control" id="type_a"  name="type_a"  style="height: 55px;">
+								
+								</select>
+                            </div>
+						
+						 <!--
+                            <div class="col-3">
+							  <label>Nom</label>
+                                <input type="nom" readonly class="form-control bg-light border-2 px-4" id="nom" required placeholder="Nom" style="height: 55px;">
+                            </div>
+                            <div class="col-3">
+							  <label>Prenom</label>
+                                <input type="text" readonly class="form-control bg-light border-2 px-4" id="prenom" required placeholder="Prenom " style="height: 55px;">
+                            </div>
+                         
+                   
+                        </div>
+						<br>
+						       <div class="row g-3">
+                            <div class="col-6">
+									  <label>Date_Suivi</label>
+                                <input type="text" class="form-control bg-light border-2 px-4"  readonly id="Date_Suivi" required  placeholder="Date_Suivi" style="height: 55px;">
+                            </div>
+                            <div class="col-6">
+									  <label>Adresse</label>
+                                <input type="nom" readonly class="form-control bg-light border-2 px-4 " id="Adresse" placeholder="Adresse" style="height: 55px;">
+                            </div>
+                           <div     class="col-3">
+							  
+                                <input type="text" readonly class="form-control bg-light border-2 px-4" id="id_client" name="id_client" required placeholder="id_client " style="height: 55px;">
+                            </div>
+                         
+                   
+                        </div>
+						-->
+						<br>
+						 
+                <h6 class="text-primary text-uppercase">Info consultation</h6>
+         
+						    <div class="row g-6">
+                            <div class="col-3">
+							 <label>Date de consultation</label>
+                                <input type="date" class="form-control bg-light border-2 px-4" id="date_Con" name="date_Con"  value="<?php echo date("Y-m-d"); ?>" readonly placeholder="Date de consultation" style="height: 55px;">
+                            </div>
+                            <div class="col-6">
+							 <label>Motif de consultation</label>
+                                <input type="text" class="form-control bg-light border-2 px-4" autocomplete="off" id="Motif_Con" name="Motif_Con" required placeholder="Motif" style="height: 55px;">
+                            </div>
+
+                        <br> <br> <br>
+					
+                            <div class="col-12">
+							
+								<h6 class="text-danger text-uppercase">Retour de Consultation</h6>
+                               <textarea class="form-control bg-light border-2 px-18 py-17" rows="2" autocomplete="off" id="Retour_Con" name="Retour_Con" required placeholder="Retour de Consultation"> </textarea>
+                            </div>
+                           
+                        </div><br>
+						
+					       <table  style="width:100%" class="table table-bordered table-striped text-center">
+						     <thead >
+							 <tr>
+                              <th  style="width:50%">
+                             <center>   <button class="btn btn-dark w-100 py-3" type="submit">Envoyer</button></center>
+                              </th>  <th>
+						
+                      <button class="btn btn-danger w-100 py-3"  onclick='window.location.reload();'>Annuler</button></center>  </th>    </thead>
+                            </div>
+							</table>
+                        </div>
+                    </form>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
+<br><br><br><br>
+
+ 
+  <div class="container-fluid bg-dark text-white-50 py-4">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-md-0">&copy; <a class="text-white" href="#">Issam Rayhani</a>. All Rights Reserved.</p>
+                </div>
+             
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+	<?php
+		include_once("./templates/client.php");
+			include_once("./templates/type_animal.php");
+				include_once("./templates/client _consultation.php");
+	?>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+	    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+	   <script src="js/ajouter.js"></script>
+	   
+    <script src="js/bootstrap.min.js"></script>
+	 <script src="js/app.js"></script>
+  <script src="assets/js/jquery.min.js"></script>  
+    <script src="js/iao-alert.jquery.js"></script>
+	 <script src="../pet_app/js/sweetalert2.all.min.js"></script>
+<link href="assets/css/iao-alert.css" rel="stylesheet" type="text/css">
+
+  <!-- Slick slider -->
+  <script type="text/javascript" src="assets/js/slick.js"></script>
+  <!-- Counter -->
+  <script type="text/javascript" src="assets/js/waypoints.js"></script>
+  <script type="text/javascript" src="assets/js/jquery.counterup.js"></script>  
+  <!-- Mixit slider -->
+  <!-- Custom js -->
+  <script src="assets/js/custom.js"></script> 
+  
+</body>
+
+</html>
